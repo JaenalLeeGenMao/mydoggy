@@ -1,0 +1,46 @@
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-container {
+  width: 100%;
+  margin-top: 5%;
+  padding: 2em 0;
+}
+
+/* animation for the dog spinner */
+.img-container .spinner {
+  font-size: 50px;
+  width: 50px;
+  margin: auto;
+  animation: spin 2s linear infinite;
+  display: none;
+}
+
+.img-container .spinner .show {
+  display: block;
+}
+
+.img-container .main-img {
+  display: none;
+  width: 80%;
+  margin: 1em auto;
+}
+
+.img-container .show {
+  display: block;
+}
+
+
+/* rotate the dog spinner 360deg - keyframes */
+@keyframes spin {
+  from{
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to{
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
