@@ -20,16 +20,17 @@ function SearchPage() {
   };
 
   useEffect(() => {
-    searchDogByBreed({
-      q: keyword,
-      page: page,
-      limit: limit,
-    })
-      .then((response) => setBreeds(response.data))
-      .catch(() => {
-        /* if null, we identify it as error */
-        setBreeds(null);
-      });
+    if (searchDogByBreed)
+      searchDogByBreed({
+        q: keyword,
+        page: page,
+        limit: limit,
+      })
+        .then((response) => setBreeds(response.data))
+        .catch(() => {
+          /* if null, we identify it as error */
+          setBreeds(null);
+        });
   }, [keyword, limit, page]);
 
   return (
@@ -45,6 +46,7 @@ function SearchPage() {
               )}
               placeholder="search your dog here"
               className="border-gray-700 border-2 rounded p-4 box-border font-medium w-full"
+              data-testid="search-input-field"
             />
           </h1>
           <div className="bg-slate-500 mx-0 w-full rounded">
@@ -55,8 +57,10 @@ function SearchPage() {
               id="sort"
               onChange={(e) => filterBreed(e.target.value as keyof Dog)}
               className="px-2 py-4 bg-slate-500 text-white rounded cursor-pointer"
+              defaultValue={""}
+              data-testid="search-filter-sortby"
             >
-              <option disabled selected>
+              <option value={""} disabled selected>
                 {" "}
                 -- select an option --{" "}
               </option>
@@ -74,6 +78,7 @@ function SearchPage() {
               onChange={(e) => setLimit(Number(e.target.value))}
               className="px-2 py-4 bg-slate-500 text-white rounded cursor-pointer"
               value={limit}
+              data-testid="search-filter-limit"
             >
               <option value={10}>10</option>
               <option value={25}>25</option>
@@ -85,6 +90,7 @@ function SearchPage() {
               className="px-12 py-4 bg-slate-500 text-white rounded cursor-pointer disabled:opacity-75 disabled:pointer-events-none"
               onClick={() => setPage(Math.max(page - 1, 0))}
               disabled={page === 0}
+              data-testid="search-btn-prev"
             >
               PREV
             </button>
@@ -92,6 +98,7 @@ function SearchPage() {
               className="px-12 py-4 bg-slate-500 text-white rounded cursor-pointer disabled:opacity-75 disabled:pointer-events-none"
               onClick={() => setPage(page + 1)}
               disabled={Array.isArray(breeds) && breeds.length < limit}
+              data-testid="search-btn-next"
             >
               Next
             </button>

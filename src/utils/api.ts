@@ -1,7 +1,7 @@
-import axios, { AxiosRequestHeaders } from "axios";
+import axios, { RawAxiosRequestHeaders } from "axios";
 
 export type JsonStructure = {
-  headers?: AxiosRequestHeaders;
+  headers?: RawAxiosRequestHeaders;
   [key: string]: unknown;
 };
 

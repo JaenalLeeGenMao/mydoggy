@@ -29,6 +29,33 @@ Folder util is quite handful. As I progress on my career in web development, com
 
 Moving on to `main.tsx` is where we prepopulate the routes. The implementation is inspired by NextJS projects to showcase how similar implementation can be done. Although not perfect yet for nested directory.
 
+## Routing
+
+Routing is manage via pages directory
+
+- pages/index.tsx points to http://localhost:3000/
+- pages/search.tsx points to http://localhost:3000/search
+
+## How to run
+
+First, make sure to have node@16.20.1 installed. Run the command below:
+
+```sh
+npm install
+npm run dev
+```
+
+## Unit test
+
+The final command gives you the big picture with html displayed on your web browser
+
+```
+npm run test
+npm run test:ui
+npm run coverage
+npm run test:ui -- --coverage
+```
+
 ## References
 
 List of references I used while creating this project

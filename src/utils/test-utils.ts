@@ -17,3 +17,6 @@ export * from "@testing-library/react";
 export { default as userEvent } from "@testing-library/user-event";
 // override render export
 export { customRender as render };
+
+export const delay = (timeoutMs: number) =>
+  new Promise<void>((resolve) => setTimeout(resolve, timeoutMs));

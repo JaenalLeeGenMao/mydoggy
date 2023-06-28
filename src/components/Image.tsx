@@ -40,7 +40,7 @@ const Image = ({ id = "", alt = "", size }: ImageProps) => {
 
   return (
     <div className="img-container">
-      <div ref={spinnerRef} className="spinner">
+      <div ref={spinnerRef} className="spinner" data-testid={`${id}-spinner`}>
         🐶
       </div>
       <img
@@ -48,6 +48,7 @@ const Image = ({ id = "", alt = "", size }: ImageProps) => {
         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
         className="rounded main-img show"
         alt={alt}
+        data-testid={`${id}-main-img`}
       />
     </div>
   );
