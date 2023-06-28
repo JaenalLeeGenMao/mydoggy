@@ -1,3 +1,6 @@
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
+
 import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
@@ -16,5 +19,11 @@ export default defineConfig({
       pages: path.resolve(__dirname, "src/pages"),
       utils: path.resolve(__dirname, "src/utils"),
     },
+  },
+  test: {
+    globals: true,
+    environment: "happy-dom",
+    setupFiles: "./src/test/setup.ts",
+    css: false,
   },
 });

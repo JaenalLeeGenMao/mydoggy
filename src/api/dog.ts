@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { getApi } from "utils/api";
 import { stringify } from "utils/querystring";
 
-type ImageSizes = "thumb" | "small" | "med" | "full";
+export type ImageSizes = "thumb" | "small" | "med" | "full";
 
 interface SearchDogProps {
   q?: string;
@@ -40,7 +40,7 @@ export const searchDogByBreed = ({
   page = 0,
   limit = 10,
 }: SearchDogProps): Promise<AxiosResponse<Dog[]>> => {
-  return getApi(`/v1/breeds/search?${stringify({ q, page, limit })}`);
+  return getApi(`/v1/breeds?${stringify({ q, page, limit })}`);
 };
 
 interface GetImageByIdProps {

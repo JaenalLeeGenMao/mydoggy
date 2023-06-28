@@ -1,9 +1,15 @@
 import { useEffect, useRef } from "react";
-import { getImageById } from "api/dog";
+import { ImageSizes, getImageById } from "api/dog";
 
 import "./Image.css";
 
-const Image = ({ id = "", alt = "" }) => {
+interface ImageProps {
+  id: string;
+  alt?: string;
+  size?: ImageSizes;
+}
+
+const Image = ({ id = "", alt = "", size }: ImageProps) => {
   const mainImageRef = useRef<HTMLImageElement>(null);
   const spinnerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -12,8 +18,7 @@ const Image = ({ id = "", alt = "" }) => {
       mainImageRef.current?.classList.add("show");
     }
 
-    getImageById({ id }).then((response) => {
-      console.log(response.data);
+    getImageById({ id, size }).then((response) => {
       if (mainImageRef.current && spinnerRef.current) {
         mainImageRef.current.src = response?.data?.url;
         if (mainImageRef.current.complete) {
@@ -31,7 +36,7 @@ const Image = ({ id = "", alt = "" }) => {
       const cleanupRef = mainImageRef?.current;
       if (cleanupRef) cleanupRef?.removeEventListener("load", loaded);
     };
-  }, [id, spinnerRef, mainImageRef]);
+  }, [id, spinnerRef, mainImageRef, size]);
 
   return (
     <div className="img-container">

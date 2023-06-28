@@ -19,59 +19,75 @@ const newAbortSignal = (timeoutMs?: number) => {
   return abortController.signal;
 };
 
-export const getApi = async (endpoint: string, options: JsonStructure = {}) =>
-  axios.get(`${import.meta.env.VITE_DOG_API_URL}${endpoint}`, {
+const generateAxiosInstance = () =>
+  axios.create({
+    baseURL: `${import.meta.env.VITE_DOG_API_URL}`,
     signal: newAbortSignal(
       import.meta.env.VITE_BASE_REQUEST_TIMEOUT_VALUE || 10000
     ),
+  });
+
+export const getApi = async (endpoint: string, options: JsonStructure = {}) => {
+  const axiosInstance = generateAxiosInstance();
+  return axiosInstance({
+    method: "get",
+    url: `${endpoint}`,
     headers: { ...(await getHeader()), ...(options?.headers ?? {}) },
   });
+};
 
 export const postApi = async (
   endpoint: string,
   body: JsonStructure | FormData | JsonStructure[],
   options: JsonStructure = {}
-) =>
-  axios.post(`${import.meta.env.VITE_DOG_API_URL}${endpoint}`, body, {
-    signal: newAbortSignal(
-      import.meta.env.VITE_BASE_REQUEST_TIMEOUT_VALUE || 10000
-    ),
+) => {
+  const axiosInstance = generateAxiosInstance();
+  return axiosInstance({
+    method: "post",
+    url: `${endpoint}`,
     headers: { ...(await getHeader()), ...(options?.headers ?? {}) },
+    data: body,
   });
+};
 
 export const patchApi = async (
   endpoint: string,
   body: JsonStructure | FormData | JsonStructure[],
   options: JsonStructure = {}
-) =>
-  axios.patch(`${import.meta.env.VITE_DOG_API_URL}${endpoint}`, body, {
-    signal: newAbortSignal(
-      import.meta.env.VITE_BASE_REQUEST_TIMEOUT_VALUE || 10000
-    ),
+) => {
+  const axiosInstance = generateAxiosInstance();
+  return axiosInstance({
+    method: "patch",
+    url: `${endpoint}`,
     headers: { ...(await getHeader()), ...(options?.headers ?? {}) },
+    data: body,
   });
+};
 
 export const putApi = async (
   endpoint: string,
   body: JsonStructure | FormData | JsonStructure[],
   options: JsonStructure = {}
-) =>
-  axios.put(`${import.meta.env.VITE_DOG_API_URL}${endpoint}`, body, {
-    signal: newAbortSignal(
-      import.meta.env.VITE_BASE_REQUEST_TIMEOUT_VALUE || 10000
-    ),
+) => {
+  const axiosInstance = generateAxiosInstance();
+  return axiosInstance({
+    method: "put",
+    url: `${endpoint}`,
     headers: { ...(await getHeader()), ...(options?.headers ?? {}) },
+    data: body,
   });
+};
 
 export const deleteApi = async (
   endpoint: string,
   body?: JsonStructure | FormData | JsonStructure[],
   options: JsonStructure = {}
-) =>
-  axios.delete(`${import.meta.env.VITE_DOG_API_URL}${endpoint}`, {
-    signal: newAbortSignal(
-      import.meta.env.VITE_BASE_REQUEST_TIMEOUT_VALUE || 10000
-    ),
+) => {
+  const axiosInstance = generateAxiosInstance();
+  return axiosInstance({
+    method: "delete",
+    url: `${endpoint}`,
     headers: { ...(await getHeader()), ...(options?.headers ?? {}) },
     data: body,
   });
+};

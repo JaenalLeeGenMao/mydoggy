@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { debounce } from "lodash";
+import { debounce, sortBy } from "lodash";
 
 import Image from "components/Image";
 
@@ -11,8 +11,12 @@ function SearchPage() {
   const [page, setPage] = useState<number>(0);
   const [breeds, setBreeds] = useState<Dog[] | null>([]);
 
-  const filterBreed = (sortby = "name") => {
-    console.log("filterBreed", sortby);
+  const filterBreed = (filterName: keyof Dog = "name") => {
+    if (filterName === "height") {
+      setBreeds(sortBy(breeds, (each) => each[`${filterName}`]["imperial"]));
+    } else {
+      setBreeds(sortBy(breeds, (each) => each[`${filterName}`]));
+    }
   };
 
   useEffect(() => {
@@ -49,25 +53,16 @@ function SearchPage() {
             </label>
             <select
               id="sort"
-              onChange={(e) => setLimit(Number(e.target.value))}
+              onChange={(e) => filterBreed(e.target.value as keyof Dog)}
               className="px-2 py-4 bg-slate-500 text-white rounded cursor-pointer"
             >
               <option disabled selected>
                 {" "}
                 -- select an option --{" "}
               </option>
-              <option value={"name"} onSelect={() => filterBreed("name")}>
-                Name
-              </option>
-              <option value={"height"} onSelect={() => filterBreed("height")}>
-                Height
-              </option>
-              <option
-                value={"life_span"}
-                onSelect={() => filterBreed("life_span")}
-              >
-                Lifespan
-              </option>
+              <option value={"name"}>Name</option>
+              <option value={"height"}>Height</option>
+              <option value={"life_span"}>Lifespan</option>
             </select>
           </div>
           <div className="bg-slate-500 mx-0 w-full rounded">
@@ -111,6 +106,7 @@ function SearchPage() {
                   key={eachBreed.reference_image_id}
                   id={eachBreed.reference_image_id}
                   alt={eachBreed.name}
+                  size={"small"}
                 />
               </div>
             ))}
