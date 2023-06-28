@@ -26,7 +26,10 @@ interface Pages {
   } & RouteCommon;
 }
 
-const pages: Pages = import.meta.glob("./pages/**/*.tsx", { eager: true });
+const pages: Pages = import.meta.glob(
+  ["./pages/**/*.tsx", "!./pages/**/*.test.tsx"],
+  { eager: true }
+);
 
 const routes: IRoute[] = [];
 for (const path of Object.keys(pages)) {
