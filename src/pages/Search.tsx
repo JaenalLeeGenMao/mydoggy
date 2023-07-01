@@ -127,5 +127,5 @@ function SearchPage() {
 export default SearchPage;
 
 export const ErrorBoundary = () => {
-  return <h3>Some Error Boundary</h3>;
+  return <h3>Search page is down</h3>;
 };

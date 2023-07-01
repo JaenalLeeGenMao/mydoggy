@@ -45,7 +45,7 @@ describe("render <Image />", async () => {
     );
 
     render(<Image id={IMAGE_ID} alt="pro doggy" />);
-    await act(() => delay(0));
+    await act(() => delay(500));
 
     expect(screen.getByTestId(`${IMAGE_ID}-spinner`)).toHaveClass("show");
     expect(screen.getByTestId(`${IMAGE_ID}-main-img`)).not.toHaveClass("show");
